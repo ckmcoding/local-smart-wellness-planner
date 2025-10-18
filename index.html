@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>갑천뷰 힐링 세미나 & 닥터 최의 웰니스 교차로</title>
+    <style>
+        /* ===== 기본 설정 ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* ===== 유틸리티 클래스 ===== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== 1. 히어로 섹션 ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            position: relative;
+            overflow: hidden;
+            padding: 80px 20px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: float 20s linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(-50px, -50px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            color: white;
+            max-width: 900px;
+        }
+
+        .hero-emoji {
+            font-size: 4em;
+            margin-bottom: 20px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .hero h1 {
+            font-size: 3em;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .hero .subtitle {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            opacity: 0.95;
+        }
+
+        .hero .description {
+            font-size: 1.1em;
+            margin-bottom: 40px;
+            opacity: 0.9;
+            line-height: 1.8;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 18px 45px;
+            background: white;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        .cta-button.secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .cta-button.secondary:hover {
+            background: white;
+            color: #667eea;
+        }
+
+        /* ===== 2. 문제 제시 섹션 ===== */
+        .problem {
+            padding: 100px 20px;
+            background: linear-gradient(to bottom, #f8f9ff, #fff);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 60px;
+            color: #333;
+        }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .problem-card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .problem-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .problem-card .emoji {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+        }
+
+        .problem-card h3 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            color: #667eea;
+        }
+
+        .problem-card p {
+            color: #666;
+            line-height: 1.7;
+        }
+
+        /* ===== 3. 솔루션 섹션 ===== */
+        .solution {
+            padding: 100px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .solution .section-title {
+            color: white;
+        }
+
+        .solution-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .solution-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 50px 30px;
+            border-radius: 20px;
+            text-align: center;
+            border: 2px solid rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .solution-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255,255,255,0.15);
+        }
+
+        .solution-card .emoji {
+            font-size: 4em;
+            margin-bottom: 25px;
+        }
+
+        .solution-card h3 {
+            font-size: 1.6em;
+            margin-bottom: 20px;
+        }
+
+        .solution-card p {
+            line-height: 1.8;
+            opacity: 0.95;
+        }
+
+        /* ===== 4. 서비스 섹션 ===== */
+        .services {
+            padding: 100px 20px;
+            background: white;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 35px;
+            margin-top: 50px;
+        }
+
+        .service-card {
+            background: linear-gradient(135deg, #f8f9ff 0%, #fff 100%);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.2);
+            border-color: #667eea;
+        }
+
+        .service-card .emoji {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+        }
+
+        .service-card h3 {
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            color: #667eea;
+        }
+
+        .service-card p {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+
+        .service-details {
+            display: none;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #f0f0f0;
+        }
+
+        .service-details.active {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .service-details ul {
+            list-style: none;
+            margin: 15px 0;
+        }
+
+        .service-details li {
+            padding: 8px 0;
+            color: #555;
+        }
+
+        .service-details li::before {
+            content: '✓ ';
+            color: #667eea;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+
+        .detail-button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .detail-button:hover {
+            background: #5568d3;
+            transform: scale(1.05);
+        }
+
+        /* ===== 5. 작동 방식 섹션 ===== */
+        .how-it-works {
+            padding: 100px 20px;
+            background: linear-gradient(to bottom, #f8f9ff, #fff);
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+            position: relative;
+        }
+
+        .step {
+            text-align: center;
+            padding: 40px 30px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+
+        .step:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.15);
+        }
+
+        .step .number {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+        }
+
+        .step h3 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            color: #667eea;
+        }
+
+        .step p {
+            color: #666;
+            line-height: 1.7;
+        }
+
+        /* ===== 6. 특장점 섹션 ===== */
+        .features {
+            padding: 100px 20px;
+            background: white;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 35px;
+            margin-top: 50px;
+        }
+
+        .feature-card {
+            padding: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.3);
+        }
+
+        .feature-card .emoji {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.4em;
+            margin-bottom: 15px;
+        }
+
+        .feature-card p {
+            opacity: 0.95;
+            line-height: 1.7;
+        }
+
+        /* ===== 7. FAQ 섹션 ===== */
+        .faq {
+            padding: 100px 20px;
+            background: linear-gradient(to bottom, #f8f9ff, #fff);
+        }
+
+        .faq-list {
+            max-width: 800px;
+            margin: 50px auto 0;
+        }
+
+        .faq-item {
+            background: white;
+            margin-bottom: 20px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+        }
+
+        .faq-question {
+            padding: 25px 30px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: #333;
+            transition: all 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: #f8f9ff;
+            color: #667eea;
+        }
+
+        .faq-question::after {
+            content: '▼';
+            transition: transform 0.3s ease;
+        }
+
+        .faq-question.active::after {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding: 0 30px;
+            color: #666;
+            line-height: 1.8;
+        }
+
+        .faq-answer.active {
+            max-height: 500px;
+            padding: 0 30px 25px;
+        }
+
+        /* ===== 8. CTA 섹션 ===== */
+        .final-cta {
+            padding: 100px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .final-cta h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .final-cta p {
+            font-size: 1.3em;
+            margin-bottom: 40px;
+            opacity: 0.95;
+        }
+
+        .final-cta .emoji {
+            font-size: 3em;
+            margin-bottom: 30px;
+        }
+
+        /* ===== 9. 푸터 ===== */
+        footer {
+            background: #2d3748;
+            color: white;
+            padding: 60px 20px 30px;
+            text-align: center;
+        }
+
+        footer h3 {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+        }
+
+        footer p {
+            opacity: 0.8;
+            margin-bottom: 30px;
+        }
+
+        .footer-contact {
+            margin: 30px 0;
+        }
+
+        .footer-contact a {
+            color: #667eea;
+            text-decoration: none;
+            margin: 0 15px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-contact a:hover {
+            color: #f093fb;
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #667eea;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.5em;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+        }
+
+        .back-to-top:hover {
+            background: #764ba2;
+            transform: translateY(-5px);
+        }
+
+        /* ===== 반응형 디자인 ===== */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2em;
+            }
+
+            .hero .subtitle {
+                font-size: 1.2em;
+            }
+
+            .hero .description {
+                font-size: 1em;
+            }
+
+            .section-title {
+                font-size: 2em;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .cta-button {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .problem-grid,
+            .solution-grid,
+            .services-grid,
+            .steps,
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .problem-grid,
+            .services-grid,
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 1. 히어로 섹션 -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-emoji">🏥✨🌿💚🧘</div>
+            <h1>갑천뷰 힐링 세미나 &<br>닥터 최의 웰니스 교차로</h1>
+            <p class="subtitle">지역 기반 스마트 웰니스 플래너</p>
+            <p class="description">
+                AI 시대, 잘못된 의료 정보의 홍수 속에서<br>
+                과학 기반의 신뢰할 수 있는 맞춤형 건강 길잡이를 만나보세요.<br>
+                대전의 아름다운 갑천을 바라보며 진정한 웰니스를 경험하세요.
+            </p>
+            <div class="cta-buttons">
+                <a href="#services" class="cta-button">서비스 소개 보기</a>
+                <a href="https://forms.gle/YOUR_FORM_LINK" target="_blank" class="cta-button secondary">무료 상담 신청 🎯</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. 문제 제시 섹션 -->
+    <section class="problem">
+        <div class="container">
+            <h2 class="section-title fade-in">왜 지금 웰니스 플래너가 필요한가요? 🤔</h2>
+            <div class="problem-grid">
+                <div class="problem-card fade-in">
+                    <div class="emoji">🌐❌</div>
+                    <h3>AI 시대의 정보 오남용</h3>
+                    <p>인터넷과 AI로 넘쳐나는 건강 정보, 무엇이 진실인지 구분하기 어렵습니다. 잘못된 정보로 인한 의료 쇼핑과 시간·비용 낭비가 심각합니다.</p>
+                </div>
+                <div class="problem-card fade-in">
+                    <div class="emoji">🏥💔</div>
+                    <h3>지역 의료에 대한 불신</h3>
+                    <p>대전에 우수한 의료 시스템이 있음에도 신뢰성 부족으로 많은 환자들이 서울로 향합니다. 지역 의료의 질적 가치가 제대로 알려지지 않고 있습니다.</p>
+                </div>
+                <div class="problem-card fade-in">
+                    <div class="emoji">🔍😰</div>
+                    <h3>통증의 미로</h3>
+                    <p>통증이 있을 때 어느 진료과를 가야 할지, 어떤 치료가 필요한지 모호합니다. 전문적인 가이드 없이 병원을 전전하며 시간과 비용을 낭비하게 됩니다.</p>
+                </div>
+                <div class="problem-card fade-in">
+                    <div class="emoji">😔🏃</div>
+                    <h3>단편적인 치료 접근</h3>
+                    <p>통합적이지 않은 치료로 근본적인 문제 해결이 어렵습니다. 다학제적 의학 정보와 맞춤형 웰니스가 필요한 시대입니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. 솔루션 섹션 -->
+    <section class="solution">
+        <div class="container">
+            <h2 class="section-title fade-in">닥터 최의 웰니스 교차로가 제공하는 해결책 💡</h2>
+            <div class="solution-grid">
+                <div class="solution-card fade-in">
+                    <div class="emoji">🤖✅</div>
+                    <h3>AI 기반 정확한 진료과 매칭</h3>
+                    <p>AI 기술을 활용해 환자의 증상을 정확히 분석하고, 필요한 진료과를 정확하게 매칭합니다. 의료 쇼핑을 방지하고 시간과 비용을 절약하세요.</p>
+                </div>
+                <div class="solution-card fade-in">
+                    <div class="emoji">📚🎓</div>
+                    <h3>다학제적 의학 정보 교육</h3>
+                    <p>과학 기반의 신뢰할 수 있는 의학 정보를 제공합니다. 정형외과, 재활의학, 통증의학 등 다양한 분야의 전문 지식을 쉽게 이해할 수 있도록 교육합니다.</p>
+                </div>
+                <div class="solution-card fade-in">
+                    <div class="emoji">🌄💚</div>
+                    <h3>갑천뷰 힐링 웰니스</h3>
+                    <p>대전의 아름다운 갑천을 배경으로 한 휴식형 웰니스 콘텐츠를 제공합니다. 로컬 매력도를 활용해 몸과 마음이 치유되는 특별한 경험을 선사합니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. 서비스 소개 섹션 -->
+    <section class="services" id="services">
+        <div class="container">
+            <h2 class="section-title fade-in">제공 서비스 🎯</h2>
+            <div class="services-grid">
+                <div class="service-card fade-in">
+                    <div class="emoji">🤖</div>
+                    <h3>AI 진료과 매칭 컨설팅</h3>
+                    <p>증상을 입력하면 AI가 최적의 진료과를 추천합니다.</p>
+                    <button class="detail-button" onclick="toggleDetails(this)">자세히 보기</button>
+                    <div class="service-details">
+                        <p><strong>서비스 개요:</strong> 환자의 증상, 통증 부위, 생활 패턴 등을 종합적으로 분석하여 가장 적합한 진료과와 치료 방향을 제시합니다.</p>
+                        <ul>
+                            <li>증상 기반 AI 분석</li>
+                            <li>최적 진료과 추천</li>
+                            <li>검사 항목 가이드</li>
+                            <li>예상 치료 기간 안내</li>
+                        </ul>
+                        <p><strong>소요 시간:</strong> 30분 / <strong>비용:</strong> 초기 상담 무료</p>
+                    </div>
+                </div>
+
+                <div class="service-card fade-in">
+                    <div class="emoji">📚</div>
+                    <h3>의학 정보 교육 세미나</h3>
+                    <p>과학 기반의 정확한 건강 정보를 배워보세요.</p>
+                    <button class="detail-button" onclick="toggleDetails(this)">자세히 보기</button>
+                    <div class="service-details">
+                        <p><strong>서비스 개요:</strong> 일반인도 이해하기 쉬운 의학 지식을 전달하는 정기 세미나. 잘못된 건강 정보를 바로잡고 올바른 의료 이용 방법을 알려드립니다.</p>
+                        <ul>
+                            <li>월 2회 정기 세미나</li>
+                            <li>통증 관리 기초 지식</li>
+                            <li>만성질환 예방법</li>
+                            <li>Q&A 세션</li>
+                        </ul>
+                        <p><strong>소요 시간:</strong> 90분 / <strong>비용:</strong> 참가비 20,000원</p>
+                    </div>
+                </div>
+
+                <div class="service-card fade-in">
+                    <div class="emoji">🌿</div>
+                    <h3>갑천뷰 힐링 프로그램</h3>
+                    <p>갑천의 아름다운 풍경 속에서 몸과 마음을 치유하세요.</p>
+                    <button class="detail-button" onclick="toggleDetails(this)">자세히 보기</button>
+                    <div class="service-details">
+                        <p><strong>서비스 개요:</strong> 대전의 랜드마크 갑천을 따라 걷는 힐링 워크, 명상, 요가 등을 결합한 웰니스 프로그램입니다.</p>
+                        <ul>
+                            <li>갑천 힐링 워크 (2km 코스)</li>
+                            <li>야외 요가 & 명상</li>
+                            <li>건강 식단 제공</li>
+                            <li>전문가 동행 가이드</li>
+                        </ul>
+                        <p><strong>소요 시간:</strong> 3시간 / <strong>비용:</strong> 50,000원</p>
+                    </div>
+                </div>
+
+                <div class="service-card fade-in">
+                    <div class="emoji">👨‍⚕️</div>
+                    <h3>1:1 맞춤 건강 상담</h3>
+                    <p>개인별 맞춤 건강 관리 플랜을 받아보세요.</p>
+                    <button class="detail-button" onclick="toggleDetails(this)">자세히 보기</button>
+                    <div class="service-details">
+                        <p><strong>서비스 개요:</strong> 의료 전문가와의 심층 상담을 통해 개인에게 최적화된 건강 관리 계획을 수립합니다.</p>
+                        <ul>
+                            <li>건강 상태 종합 분석</li>
+                            <li>맞춤형 운동 플랜</li>
+                            <li>식단 조언</li>
+                            <li>3개월 관리 프로그램</li>
+                        </ul>
+                        <p><strong>소요 시간:</strong> 60분 / <strong>비용:</strong> 80,000원 (패키지 할인 가능)</p>
+                    </div>
+                </div>
+
+                <div class="service-card fade-in">
+                    <div class="emoji">🏥</div>
+                    <h3>대전 의료 네트워크 연결</h3>
+                    <p>신뢰할 수 있는 대전 지역 의료기관을 연결해드립니다.</p>
+                    <button class="detail-button" onclick="toggleDetails(this)">자세히 보기</button>
+                    <div class="service-details">
+                        <p><strong>서비스 개요:</strong> 대전 지역 우수 의료기관과의 네트워크를 통해 빠르고 정확한 진료를 받을 수 있도록 지원합니다.</p>
+                        <ul>
+                            <li>전문 병원 예약 대행
